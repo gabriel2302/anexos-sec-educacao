@@ -21,7 +21,6 @@
   },
   "exclude": [
     "./dist",
-    "node_modules",
     "jest.config.js",
     "prettier.config.js"
   ]
