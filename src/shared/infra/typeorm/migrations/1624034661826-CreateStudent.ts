@@ -19,7 +19,7 @@ export default class CreateStudent1624034661826 implements MigrationInterface {
           },
           {
             name: 'birthdate',
-            type: 'varchar',
+            type: 'timestamp with time zone',
           },
           {
             name: 'created_at',
@@ -37,6 +37,6 @@ export default class CreateStudent1624034661826 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('students');
   }
 }

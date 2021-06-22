@@ -5,9 +5,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "allowJs": true,
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
+    "allowJs": true,
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
@@ -18,10 +18,14 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
   "exclude": [
-    "./dist",
+    "coverage",
+    "babel.config.js",
     "jest.config.js",
+    "jest-unit-config.js",
+    "jest-integration-config.js",
     "prettier.config.js"
   ]
 }

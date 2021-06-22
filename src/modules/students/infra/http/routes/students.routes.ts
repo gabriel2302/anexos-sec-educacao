@@ -13,10 +13,12 @@ studentsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      birthdate: Joi.string().required(),
+      birthdate: Joi.date().required(),
     },
   }),
   studentsController.create,
 );
+
+studentsRouter.get('/', ensureAuthenticated, studentsController.findAll);
 
 export default studentsRouter;

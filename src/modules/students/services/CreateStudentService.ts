@@ -1,9 +1,10 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
+import Student from '@modules/students/infra/typeorm/entities/Student';
+import IStudentsRepository from '../repositories/IStudentsRepository';
 
 interface IRequest {
   name: string;
-  birthdate: string;
+  birthdate: Date;
 }
 
 @injectable()
