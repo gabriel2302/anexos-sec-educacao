@@ -21,6 +21,7 @@ profileRouter.put(
   }),
   profileController.update,
 );
-// profileRouter.get('/', profileController.show);
+
+profileRouter.get('/', profileController.show);
 
 export default profileRouter;

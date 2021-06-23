@@ -26,6 +26,15 @@ class StudentsRepository implements IStudentsRepository {
     const students = this.ormRepository.find();
     return students;
   }
+
+  public async deleteById(id: string): Promise<void> {
+    await this.ormRepository.delete({ id });
+  }
+
+  public async findById(id: string): Promise<Student | undefined> {
+    const student = await this.ormRepository.findOne(id);
+    return student;
+  }
 }
 
 export default StudentsRepository;

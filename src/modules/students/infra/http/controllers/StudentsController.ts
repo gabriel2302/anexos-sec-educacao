@@ -1,4 +1,5 @@
 import CreateStudentService from '@modules/students/services/CreateStudentService';
+import DeleteStudentByIdService from '@modules/students/services/DeleteStudentByIdService';
 import ListAllStudentsService from '@modules/students/services/ListAllStudentsService';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
@@ -22,5 +23,15 @@ export default class StudentsController {
     const listAllStudents = container.resolve(ListAllStudentsService);
     const students = await listAllStudents.execute();
     return response.json(classToClass(students));
+  }
+
+  public async deleteById(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const deleteProduct = container.resolve(DeleteStudentByIdService);
+    await deleteProduct.execute(id);
+    return response.status(204).json('Student deleted successful');
   }
 }

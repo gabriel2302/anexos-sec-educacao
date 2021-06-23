@@ -20,5 +20,15 @@ studentsRouter.post(
 );
 
 studentsRouter.get('/', ensureAuthenticated, studentsController.findAll);
+studentsRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  ensureAuthenticated,
+  studentsController.deleteById,
+);
 
 export default studentsRouter;

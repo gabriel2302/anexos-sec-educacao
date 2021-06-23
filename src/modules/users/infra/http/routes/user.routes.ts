@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import UsersController from '../controllers/UsersController';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureAuthorized from '../middlewares/ensureAuthorized';
 
 const usersRouter = Router();
 
@@ -18,6 +20,13 @@ usersRouter.post(
     },
   }),
   usersController.create,
+);
+
+usersRouter.get(
+  '/all',
+  ensureAuthenticated,
+  ensureAuthorized(['adm']),
+  usersController.listAll,
 );
 
 export default usersRouter;
