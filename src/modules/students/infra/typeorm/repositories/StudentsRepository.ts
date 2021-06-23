@@ -22,6 +22,10 @@ class StudentsRepository implements IStudentsRepository {
     return student;
   }
 
+  public async save(student: Student): Promise<Student> {
+    return this.ormRepository.save(student);
+  }
+
   public async findAll(): Promise<Student[]> {
     const students = this.ormRepository.find();
     return students;
