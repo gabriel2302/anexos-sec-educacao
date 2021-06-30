@@ -19,7 +19,7 @@ studentsRouter.post(
   studentsController.create,
 );
 
-studentsRouter.get('/', ensureAuthenticated, studentsController.findAll);
+studentsRouter.get('/', studentsController.findAll);
 studentsRouter.delete(
   '/:id',
   celebrate({

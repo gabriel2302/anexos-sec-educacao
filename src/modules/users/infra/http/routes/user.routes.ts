@@ -14,7 +14,7 @@ usersRouter.post(
   celebrate({
     [Segments.BODY]: {
       username: Joi.string().required(),
-      role: Joi.string(),
+      role: Joi.string().valid('adm', 'user'),
       password: Joi.string().required(),
       passwordConfirmation: Joi.string(),
     },
