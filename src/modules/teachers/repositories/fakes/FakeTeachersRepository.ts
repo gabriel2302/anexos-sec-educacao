@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import Teacher from '@modules/teachers/infra/typeorm/entities/Teacher';
 import ICreateTeacherDTO from '../../dtos/ICreateTeacherDTO';
 import ITeachersRepository from '../ITeachersRepository';
@@ -35,6 +35,16 @@ class FakeTeachersRepository implements ITeachersRepository {
       findTeachers => findTeachers.id === id,
     );
     this.teachers.splice(this.teachers.indexOf(this.teachers[findIndex]), 1);
+  }
+
+  public async findByEnrollment(
+    enrollment: string,
+  ): Promise<Teacher | undefined> {
+    const findIndex = this.teachers.findIndex(
+      findTeachers => findTeachers.enrollment === enrollment,
+    );
+
+    return this.teachers[findIndex];
   }
 }
 

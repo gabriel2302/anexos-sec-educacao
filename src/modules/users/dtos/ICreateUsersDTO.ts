@@ -3,4 +3,5 @@ export default interface ICreateUserDTO {
   role?: string;
   password: string;
   institution_id: string;
+  teacher_id?: string;
 }

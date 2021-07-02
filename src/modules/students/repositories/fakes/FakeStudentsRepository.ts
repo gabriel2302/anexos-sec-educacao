@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 import ICreateStudentsDTO from '@modules/students/dtos/ICreateStudentsDTO';
 import IStudentsRepository from '../IStudentsRepository';
 import Student from '../../infra/typeorm/entities/Student';

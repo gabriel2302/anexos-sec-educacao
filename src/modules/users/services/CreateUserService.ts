@@ -11,6 +11,7 @@ interface IRequest {
   username: string;
   role?: string;
   institution_id: string;
+  teacher_id?: string;
   password: string;
   passwordConfirmation: string;
 }
@@ -34,6 +35,7 @@ class CreateUserService {
     password,
     passwordConfirmation,
     institution_id,
+    teacher_id,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByUser(username);
     if (checkUserExists) {
@@ -58,6 +60,7 @@ class CreateUserService {
       role,
       institution_id,
       password: hashedPassword,
+      teacher_id,
     });
 
     return newUser;

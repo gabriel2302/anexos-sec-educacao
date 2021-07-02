@@ -20,6 +20,16 @@ class TeachersRepository implements ITeachersRepository {
     return teachers;
   }
 
+  public async findByEnrollment(
+    enrollment: string,
+  ): Promise<Teacher | undefined> {
+    const teacher = this.ormRepository.findOne({
+      where: { enrollment },
+      relations: ['institution'],
+    });
+    return teacher;
+  }
+
   public async create(teacherData: ICreateTeacherDTO): Promise<Teacher> {
     const teacher = this.ormRepository.create(teacherData);
     await this.ormRepository.save(teacher);

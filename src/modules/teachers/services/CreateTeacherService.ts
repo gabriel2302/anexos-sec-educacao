@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IInstitutionsRepository from '@modules/institutions/repositories/IInstitutionsRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import Teacher from '../infra/typeorm/entities/Teacher';
 import ITeachersRepository from '../repositories/ITeachersRepository';
 
@@ -26,6 +27,9 @@ class CreateTeacherService {
 
     @inject('InstitutionsRepository')
     private institutionsRepository: IInstitutionsRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -44,6 +48,14 @@ class CreateTeacherService {
       throw new AppError('Institution does not exist.');
     }
 
+    const checkTeacherExists = await this.teachersRepository.findByEnrollment(
+      enrollment,
+    );
+
+    if (checkTeacherExists) {
+      throw new AppError('Teacher Enrollment already in use');
+    }
+
     const teacher = await this.teachersRepository.create({
       name,
       enrollment,
@@ -53,11 +65,16 @@ class CreateTeacherService {
       institution_id,
     });
 
+    const hashedPassword = await this.hashProvider.generateHash(
+      teacher.enrollment,
+    );
+
     await this.usersRepository.create({
-      role: 'user',
       username: teacher.enrollment,
       institution_id,
-      password: teacher.enrollment,
+      password: hashedPassword,
+      teacher_id: teacher.id,
+      role: 'user',
     });
     return teacher;
   }

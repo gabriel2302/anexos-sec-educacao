@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
 import ICreateInstitutionDTO from '@modules/institutions/dtos/ICreateInstitutionDTO';

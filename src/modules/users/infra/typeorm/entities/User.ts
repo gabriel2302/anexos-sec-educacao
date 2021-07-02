@@ -10,6 +10,7 @@ import {
 
 import { Exclude } from 'class-transformer';
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
+import Teacher from '@modules/teachers/infra/typeorm/entities/Teacher';
 
 @Entity('users')
 class User {
@@ -22,12 +23,21 @@ class User {
   @Column()
   role: string;
 
-  @Column()
+  @Exclude()
+  @Column({ nullable: true, type: 'uuid' })
   institution_id: string;
 
   @ManyToOne(() => Institution)
   @JoinColumn({ name: 'institution_id' })
   institution: Institution;
+
+  @Exclude()
+  @Column({ nullable: true, type: 'uuid' })
+  teacher_id: string;
+
+  @ManyToOne(() => Teacher)
+  @JoinColumn({ name: 'teacher_id' })
+  teacher: Teacher;
 
   @Column()
   @Exclude()

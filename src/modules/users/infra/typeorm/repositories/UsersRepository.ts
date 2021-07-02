@@ -35,7 +35,7 @@ class UsersRepository implements IUsersRepository {
 
   public async findAll(): Promise<User[]> {
     const users = await this.ormRepository.find({
-      relations: ['institution'],
+      relations: ['institution', 'teacher'],
     });
     return users;
   }
