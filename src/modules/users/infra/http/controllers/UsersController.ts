@@ -7,7 +7,8 @@ import ListAllUsersService from '@modules/users/services/ListAllUsersService';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { username, role, password, passwordConfirmation } = request.body;
+    const { username, role, password, passwordConfirmation, institution_id } =
+      request.body;
 
     const createUser = container.resolve(CreateUserService);
 
@@ -16,6 +17,7 @@ export default class UsersController {
       role,
       password,
       passwordConfirmation,
+      institution_id,
     });
 
     return response.json(classToClass(newUser));

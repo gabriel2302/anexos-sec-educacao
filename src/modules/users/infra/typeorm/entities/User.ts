@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
+import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
 
 @Entity('users')
 class User {
@@ -18,6 +21,13 @@ class User {
 
   @Column()
   role: string;
+
+  @Column()
+  institution_id: string;
+
+  @ManyToOne(() => Institution)
+  @JoinColumn({ name: 'institution_id' })
+  institution: Institution;
 
   @Column()
   @Exclude()

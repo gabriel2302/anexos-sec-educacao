@@ -43,7 +43,6 @@ class AuthenticateUserService {
       subject: user.id,
       expiresIn,
     });
-    console.log(token);
     return {
       user,
       token,

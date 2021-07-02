@@ -14,7 +14,8 @@ usersRouter.post(
   celebrate({
     [Segments.BODY]: {
       username: Joi.string().required(),
-      role: Joi.string().valid('adm', 'user'),
+      role: Joi.string().valid('adm', 'superadm'),
+      institution_id: Joi.string().uuid().required(),
       password: Joi.string().required(),
       passwordConfirmation: Joi.string(),
     },
@@ -25,7 +26,7 @@ usersRouter.post(
 usersRouter.get(
   '/all',
   ensureAuthenticated,
-  ensureAuthorized(['adm']),
+  ensureAuthorized(['adm', 'superadm']),
   usersController.listAll,
 );
 

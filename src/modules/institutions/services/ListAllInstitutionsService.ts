@@ -10,6 +10,7 @@ class ListAllInstitutionsService {
   ) {}
 
   public async execute(): Promise<Institution[]> {
+    // TODO: pegar o id do usuário no controller e verificar se ele é superadm
     const institutions = await this.institutionsRepository.findAll();
     return institutions;
   }

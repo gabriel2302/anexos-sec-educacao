@@ -34,27 +34,19 @@ class UpdatePasswordService {
       throw new AppError('User not found');
     }
 
-    if (password && !old_password) {
-      throw new AppError(
-        'You need to inform the old password to set a new password',
-      );
-    }
-
     if (password !== password_confirmation) {
       throw new AppError('Password and Password Confirmation must be equals');
     }
 
-    if (password && old_password) {
-      const checkOldPassword = await this.hashProvider.compareHash(
-        old_password,
-        user.password,
-      );
+    const checkOldPassword = await this.hashProvider.compareHash(
+      old_password,
+      user.password,
+    );
 
-      if (!checkOldPassword) {
-        throw new AppError('Old password does not match.');
-      }
-      user.password = await this.hashProvider.generateHash(password);
+    if (!checkOldPassword) {
+      throw new AppError('Old password does not match.');
     }
+    user.password = await this.hashProvider.generateHash(password);
 
     return this.usersRepository.save(user);
   }
