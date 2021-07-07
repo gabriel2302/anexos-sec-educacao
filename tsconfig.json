@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "CommonJS",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -26,6 +26,8 @@
     "jest.config.js",
     "jest-unit-config.js",
     "jest-integration-config.js",
-    "prettier.config.js"
+    "prettier.config.js",
+    "./dist",
+    "jest.setup.ts"
   ]
 }

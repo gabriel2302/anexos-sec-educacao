@@ -1,8 +1,5 @@
 import { container } from 'tsyringe';
-import '@modules/users/providers';
-
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import '@modules/people/providers';
 
 import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import StudentsRepository from '@modules/students/infra/typeorm/repositories/StudentsRepository';
@@ -10,13 +7,8 @@ import StudentsRepository from '@modules/students/infra/typeorm/repositories/Stu
 import IInstitutionsRepository from '@modules/institutions/repositories/IInstitutionsRepository';
 import InstitutionsRepository from '@modules/institutions/infra/typeorm/repositories/InstitutionsRepository';
 
-import TeachersRepository from '@modules/teachers/infra/typeorm/repositories/TeachersRepository';
-import ITeachersRepository from '@modules/teachers/repositories/ITeachersRepository';
-
-container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
-  UsersRepository,
-);
+import IPeopleRepository from '@modules/people/repositories/IPeopleRepository';
+import PeopleRepository from '@modules/people/infra/typeorm/repositories/PeopleRepository';
 
 container.registerSingleton<IStudentsRepository>(
   'StudentsRepository',
@@ -28,7 +20,7 @@ container.registerSingleton<IInstitutionsRepository>(
   InstitutionsRepository,
 );
 
-container.registerSingleton<ITeachersRepository>(
-  'TeachersRepository',
-  TeachersRepository,
+container.registerSingleton<IPeopleRepository>(
+  'PeopleRepository',
+  PeopleRepository,
 );

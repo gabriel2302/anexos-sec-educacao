@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/people/infra/http/middlewares/ensureAuthenticated';
 import StudentsController from '../controllers/StudentsController';
 
 const studentsController = new StudentsController();

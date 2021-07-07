@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import ensureAuthorized from '@modules/users/infra/http/middlewares/ensureAuthorized';
+import ensureAuthenticated from '@modules/people/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthorized from '@modules/people/infra/http/middlewares/ensureAuthorized';
 import InstitutionsController from '../controllers/InstitutionsController';
 
 const institutionsController = new InstitutionsController();

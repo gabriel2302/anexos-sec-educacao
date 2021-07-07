@@ -33,6 +33,22 @@ describe('UpdateProfile', () => {
     expect(updatedInstitution.learning_kind).toBe('other');
   });
 
+  it('should be able to update the institution only obrigatories parameters', async () => {
+    const institution = await fakeInstitutionsRepository.create({
+      director: 'director',
+      learning_kind: 'eja',
+      name: 'name',
+    });
+
+    const updatedInstitution = await updateInstitution.execute({
+      id: institution.id,
+    });
+
+    expect(updatedInstitution.name).toBe('name');
+    expect(updatedInstitution.director).toBe('director');
+    expect(updatedInstitution.learning_kind).toBe('eja');
+  });
+
   it('should not be able update the institution from non-existing institution', async () => {
     await expect(
       updateInstitution.execute({
