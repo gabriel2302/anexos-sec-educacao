@@ -15,7 +15,6 @@ export default class PeopleController {
       office,
       occupation,
       functional_situation,
-      institution_id,
     } = request.body;
 
     const createPerson = container.resolve(CreatePersonService);
@@ -23,7 +22,6 @@ export default class PeopleController {
     const newPerson = await createPerson.execute({
       role,
       password,
-      institution_id,
       name,
       enrollment,
       office,

@@ -8,7 +8,6 @@ import Person from '../infra/typeorm/entities/Person';
 
 interface IRequest {
   role?: string;
-  institution_id: string;
   password: string;
   enrollment: string;
   functional_situation: string;
@@ -38,7 +37,6 @@ class CreatePersonService {
     name,
     occupation,
     office,
-    institution_id,
     institution,
   }: IRequest): Promise<Person> {
     const checkUserExists = await this.peopleRepository.findByEnrollment(
@@ -48,7 +46,7 @@ class CreatePersonService {
       throw new AppError('User enrollment already exists');
     }
     const checkInstitutionExists = await this.institutionRepository.findById(
-      institution_id,
+      institution,
     );
 
     if (!checkInstitutionExists) {
@@ -69,7 +67,7 @@ class CreatePersonService {
     const newPerson = await this.peopleRepository.create({
       username: enrollment,
       role,
-      institution_id,
+      institution_id: institution,
       password: hashedPassword,
       enrollment,
       functional_situation,

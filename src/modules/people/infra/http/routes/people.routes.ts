@@ -21,7 +21,6 @@ peopleRouter.post(
       functional_situation: Joi.string()
         .required()
         .valid('efetivo', 'contrato', 'dobra', 'substituição'),
-      institution_id: Joi.string().uuid().required(),
     },
   }),
   peopleController.create,
