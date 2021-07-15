@@ -3,7 +3,6 @@ import Student from '../infra/typeorm/entities/Student';
 import IStudentsRepository from '../repositories/IStudentsRepository';
 
 type IRequest = {
-  role?: string;
   institution: string;
 };
 

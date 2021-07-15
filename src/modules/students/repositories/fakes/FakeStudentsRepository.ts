@@ -30,6 +30,13 @@ class FakeStudentsRepository implements IStudentsRepository {
     return this.students;
   }
 
+  public async findAllByInstitutionId(id: string): Promise<Student[]> {
+    const students = this.students.filter(
+      student => student.institution_id === id,
+    );
+    return students;
+  }
+
   public async deleteById(id: string): Promise<void> {
     const findIndex = this.students.findIndex(
       findStudent => findStudent.id === id,

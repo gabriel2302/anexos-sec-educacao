@@ -1,4 +1,5 @@
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
+import { Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -21,6 +22,7 @@ class Student {
   birthdate: Date;
 
   @Column()
+  @Exclude()
   institution_id: string;
 
   @ManyToOne(() => Institution)

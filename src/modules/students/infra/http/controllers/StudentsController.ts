@@ -1,5 +1,6 @@
 import CreateStudentService from '@modules/students/services/CreateStudentService';
 import DeleteStudentByIdService from '@modules/students/services/DeleteStudentByIdService';
+import ListAllStudentsByInstitutionIdService from '@modules/students/services/ListAllStudentsByInstitutionIdService';
 import ListAllStudentsService from '@modules/students/services/ListAllStudentsService';
 import UpdateStudentService from '@modules/students/services/UpdateStudentService';
 import { classToClass } from 'class-transformer';
@@ -25,6 +26,18 @@ export default class StudentsController {
   ): Promise<Response> {
     const listAllStudents = container.resolve(ListAllStudentsService);
     const students = await listAllStudents.execute();
+    return response.json(classToClass(students));
+  }
+
+  public async findAllByInstitutionId(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const listAllStudents = container.resolve(
+      ListAllStudentsByInstitutionIdService,
+    );
+    const { institution } = request.person;
+    const students = await listAllStudents.execute({ institution });
     return response.json(classToClass(students));
   }
 

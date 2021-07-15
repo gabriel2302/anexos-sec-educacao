@@ -36,6 +36,7 @@ class Person {
   functional_situation: string;
 
   @Column()
+  @Exclude()
   institution_id: string;
 
   @ManyToOne(() => Institution)

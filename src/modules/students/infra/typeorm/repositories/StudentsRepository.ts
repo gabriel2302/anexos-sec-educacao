@@ -29,7 +29,9 @@ class StudentsRepository implements IStudentsRepository {
   }
 
   public async findAll(): Promise<Student[]> {
-    const students = this.ormRepository.find();
+    const students = this.ormRepository.find({
+      relations: ['institution'],
+    });
     return students;
   }
 

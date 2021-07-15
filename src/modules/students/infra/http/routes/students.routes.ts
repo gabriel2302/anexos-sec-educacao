@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import ensureAuthenticated from '@modules/people/infra/http/middlewares/ensureAuthenticated';
+import ensureAuthorized from '@modules/people/infra/http/middlewares/ensureAuthorized';
 import StudentsController from '../controllers/StudentsController';
 
 const studentsController = new StudentsController();
@@ -19,7 +20,20 @@ studentsRouter.post(
   studentsController.create,
 );
 
-studentsRouter.get('/', studentsController.findAll);
+// Rota que lista todos os estudantes em todas as instituicoes
+studentsRouter.get(
+  '/all',
+  ensureAuthenticated,
+  ensureAuthorized(['superadm']),
+  studentsController.findAll,
+);
+
+studentsRouter.get(
+  '/',
+  ensureAuthenticated,
+  studentsController.findAllByInstitutionId,
+);
+
 studentsRouter.delete(
   '/:id',
   celebrate({
