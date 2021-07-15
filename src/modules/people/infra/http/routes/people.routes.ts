@@ -26,11 +26,42 @@ peopleRouter.post(
   peopleController.create,
 );
 
-// TODO: Deixar essa rota somente para superadm
+// Rota somente para superadm
+peopleRouter.get(
+  '/all-people',
+  ensureAuthenticated,
+  ensureAuthorized(['superadm']),
+  peopleController.listAll,
+);
+
 peopleRouter.get(
   '/all',
   ensureAuthenticated,
-  ensureAuthorized(['adm', 'superadm']),
-  peopleController.listAll,
+  ensureAuthorized(['adm']),
+  peopleController.listAllById,
+);
+
+peopleRouter.patch(
+  '/update/:id',
+  ensureAuthenticated,
+  ensureAuthorized(['adm']),
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string(),
+      office: Joi.string(),
+      enrollment: Joi.string(),
+      occupation: Joi.string().valid('PEB I', 'MONITOR DE CRECHE'),
+      functional_situation: Joi.string().valid(
+        'efetivo',
+        'contrato',
+        'dobra',
+        'substituição',
+      ),
+    },
+  }),
+  peopleController.update,
 );
 export default peopleRouter;

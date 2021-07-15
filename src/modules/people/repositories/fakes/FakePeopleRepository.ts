@@ -31,6 +31,11 @@ class FakePeopleRepository implements IPeopleRepository {
     return this.people;
   }
 
+  public async findAllById(id: string): Promise<Person[]> {
+    const people = this.people.filter(person => person.institution_id === id);
+    return people;
+  }
+
   public async findByEnrollment(
     enrollment: string,
   ): Promise<Person | undefined> {

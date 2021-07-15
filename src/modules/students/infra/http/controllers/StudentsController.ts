@@ -9,10 +9,12 @@ import { container } from 'tsyringe';
 export default class StudentsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, birthdate } = request.body;
+    const { institution } = request.person;
     const createStudent = container.resolve(CreateStudentService);
     const newStudent = await createStudent.execute({
       name,
       birthdate,
+      institution,
     });
     return response.json(classToClass(newStudent));
   }

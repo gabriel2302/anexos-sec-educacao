@@ -11,9 +11,9 @@ class InstitutionsRepository implements IInstitutionRepository {
   }
 
   public async create({
-    name,
     director,
     learning_kind,
+    name,
   }: ICreateInstitutionDTO): Promise<Institution> {
     const institution = this.ormRepository.create({
       name,

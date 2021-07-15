@@ -8,4 +8,5 @@ export default interface IPeopleRepository {
   findByEnrollment(enrollment: string): Promise<Person | undefined>;
   findById(id: string): Promise<Person | undefined>;
   findAll(): Promise<Person[]>;
+  findAllById(id: string): Promise<Person[]>;
 }

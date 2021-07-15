@@ -13,10 +13,12 @@ class StudentsRepository implements IStudentsRepository {
   public async create({
     name,
     birthdate,
+    institution_id,
   }: ICreateStudentsDTO): Promise<Student> {
     const student = this.ormRepository.create({
       birthdate,
       name,
+      institution_id,
     });
     await this.ormRepository.save(student);
     return student;
@@ -28,6 +30,14 @@ class StudentsRepository implements IStudentsRepository {
 
   public async findAll(): Promise<Student[]> {
     const students = this.ormRepository.find();
+    return students;
+  }
+
+  public async findAllByInstitutionId(id: string): Promise<Student[]> {
+    const students = await this.ormRepository.find({
+      where: { institution_id: id },
+      relations: ['institution'],
+    });
     return students;
   }
 

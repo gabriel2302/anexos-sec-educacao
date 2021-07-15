@@ -52,18 +52,8 @@ class CreatePersonService {
     if (!checkInstitutionExists) {
       throw new AppError('Institution does not exists');
     }
-    if (checkInstitutionExists.id !== institution) {
-      throw new AppError(
-        'Institution id must be equal to institution user',
-        403,
-      );
-    }
-
-    // TODO: - Verificar se a instituicao e a mesma do usuario logado
 
     const hashedPassword = await this.hashProvider.generateHash(enrollment);
-
-    // TODO: Tirar o id da instituicao da rota e pegar do usuario logado
     const newPerson = await this.peopleRepository.create({
       username: enrollment,
       role,

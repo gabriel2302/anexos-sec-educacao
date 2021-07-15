@@ -5,22 +5,23 @@ import Person from '../infra/typeorm/entities/Person';
 
 type IRequest = {
   role?: string;
+  institution: string;
 };
 
 @injectable()
-class ListAllPeopleService {
+class ListAllPeopleByIdService {
   constructor(
     @inject('PeopleRepository')
     private peopleRepository: IPeopleRepository,
   ) {}
 
-  public async execute({ role }: IRequest): Promise<Person[]> {
-    if (role !== 'superadm') {
+  public async execute({ role, institution }: IRequest): Promise<Person[]> {
+    if (role !== 'adm') {
       throw new AppError('Forbidden', 403);
     }
-    const people = await this.peopleRepository.findAll();
+    const people = await this.peopleRepository.findAllById(institution);
     return people;
   }
 }
 
-export default ListAllPeopleService;
+export default ListAllPeopleByIdService;

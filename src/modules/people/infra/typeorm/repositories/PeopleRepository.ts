@@ -30,6 +30,14 @@ class PersonsRepository implements IPersonsRepository {
     return person;
   }
 
+  public async findAllById(id: string): Promise<Person[]> {
+    const people = await this.ormRepository.find({
+      where: { institution_id: id },
+      relations: ['institution'],
+    });
+    return people;
+  }
+
   public async findById(id: string): Promise<Person | undefined> {
     const person = await this.ormRepository.findOne(id);
     return person;
