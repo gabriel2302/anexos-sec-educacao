@@ -1,10 +1,14 @@
 import { getRepository, Repository } from 'typeorm';
 
-import IPersonsRepository from '@modules/people/repositories/IPeopleRepository';
+import IPeopleRepository from '@modules/people/repositories/IPeopleRepository';
 import ICreatePersonDTO from '@modules/people/dtos/ICreatePersonDTO';
 import Person from '../entities/Person';
 
-class PersonsRepository implements IPersonsRepository {
+interface IFindPeople {
+  id: string;
+}
+
+class PeopleRepository implements IPeopleRepository {
   private ormRepository: Repository<Person>;
 
   constructor() {
@@ -33,7 +37,7 @@ class PersonsRepository implements IPersonsRepository {
   public async findAllById(id: string): Promise<Person[]> {
     const people = await this.ormRepository.find({
       where: { institution_id: id },
-      relations: ['institution'],
+      relations: ['institution', 'person'],
     });
     return people;
   }
@@ -49,6 +53,13 @@ class PersonsRepository implements IPersonsRepository {
     });
     return persons;
   }
+
+  public async findAllPeopleById(peopleIds: IFindPeople[]): Promise<Person[]> {
+    const people = await this.ormRepository.findByIds(peopleIds);
+    console.log('peopleRepository, people: ', people);
+    console.log('peopleRepository, peopleIds: ', peopleIds);
+    return people;
+  }
 }
 
-export default PersonsRepository;
+export default PeopleRepository;

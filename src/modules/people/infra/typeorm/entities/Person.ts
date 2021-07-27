@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
 import { Exclude } from 'class-transformer';
+import ClassroomsPeople from '@modules/classrooms/infra/typeorm/entities/ClassroomsPeople';
 
 @Entity('persons')
 class Person {
@@ -42,6 +44,12 @@ class Person {
   @ManyToOne(() => Institution)
   @JoinColumn({ name: 'institution_id' })
   institution: Institution;
+
+  @OneToMany(
+    () => ClassroomsPeople,
+    classroomPeople => classroomPeople.person_id,
+  )
+  classrooms_people: ClassroomsPeople[];
 
   @Column()
   username: string;

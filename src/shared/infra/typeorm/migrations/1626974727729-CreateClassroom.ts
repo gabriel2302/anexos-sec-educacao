@@ -5,11 +5,13 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreatePerson1625566924586 implements MigrationInterface {
+export default class CreateClassroom1626974727729
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'persons',
+        name: 'classrooms',
         columns: [
           {
             name: 'id',
@@ -19,37 +21,16 @@ export default class CreatePerson1625566924586 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'username',
+            name: 'name',
             type: 'varchar',
             isUnique: true,
           },
           {
-            name: 'role',
-            type: 'varchar',
-            default: 'user',
-          },
-          {
-            name: 'password',
+            name: 'year',
             type: 'varchar',
           },
           {
-            name: 'name',
-            type: 'varchar',
-          },
-          {
-            name: 'enrollment',
-            type: 'varchar',
-          },
-          {
-            name: 'office',
-            type: 'varchar',
-          },
-          {
-            name: 'occupation',
-            type: 'varchar',
-          },
-          {
-            name: 'functional_situation',
+            name: 'shift',
             type: 'varchar',
           },
           {
@@ -72,9 +53,9 @@ export default class CreatePerson1625566924586 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      'persons',
+      'classrooms',
       new TableForeignKey({
-        name: 'InstitutionPerson',
+        name: 'InstitutionClassroom',
         columnNames: ['institution_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'institutions',
@@ -85,7 +66,7 @@ export default class CreatePerson1625566924586 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('persons', 'InstitutionPerson');
-    await queryRunner.dropTable('persons');
+    await queryRunner.dropForeignKey('classrooms', 'InstitutionClassroom');
+    await queryRunner.dropTable('classrooms');
   }
 }

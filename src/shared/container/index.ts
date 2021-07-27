@@ -10,6 +10,9 @@ import InstitutionsRepository from '@modules/institutions/infra/typeorm/reposito
 import IPeopleRepository from '@modules/people/repositories/IPeopleRepository';
 import PeopleRepository from '@modules/people/infra/typeorm/repositories/PeopleRepository';
 
+import IClassroomsRepository from '@modules/classrooms/repositories/IClassroomsRepository';
+import ClassroomsRepository from '@modules/classrooms/infra/typeorm/repositories/ClassroomsRepository';
+
 container.registerSingleton<IStudentsRepository>(
   'StudentsRepository',
   StudentsRepository,
@@ -23,4 +26,9 @@ container.registerSingleton<IInstitutionsRepository>(
 container.registerSingleton<IPeopleRepository>(
   'PeopleRepository',
   PeopleRepository,
+);
+
+container.registerSingleton<IClassroomsRepository>(
+  'ClassroomsRepository',
+  ClassroomsRepository,
 );
