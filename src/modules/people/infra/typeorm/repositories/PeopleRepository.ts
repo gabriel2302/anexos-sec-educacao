@@ -56,8 +56,6 @@ class PeopleRepository implements IPeopleRepository {
 
   public async findAllPeopleById(peopleIds: IFindPeople[]): Promise<Person[]> {
     const people = await this.ormRepository.findByIds(peopleIds);
-    console.log('peopleRepository, people: ', people);
-    console.log('peopleRepository, peopleIds: ', peopleIds);
     return people;
   }
 }

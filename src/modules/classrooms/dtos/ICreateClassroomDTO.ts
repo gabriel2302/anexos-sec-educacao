@@ -1,5 +1,5 @@
 type IPerson = {
-  id: string;
+  person_id: string;
 };
 
 export default interface ICreateClassroomDTO {

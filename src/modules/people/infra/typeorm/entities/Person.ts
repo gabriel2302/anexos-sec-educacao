@@ -47,7 +47,7 @@ class Person {
 
   @OneToMany(
     () => ClassroomsPeople,
-    classroomPeople => classroomPeople.person_id,
+    classroomsPeople => classroomsPeople.classroom,
   )
   classrooms_people: ClassroomsPeople[];
 

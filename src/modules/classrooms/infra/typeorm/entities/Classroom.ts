@@ -1,6 +1,4 @@
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
-import Person from '@modules/people/infra/typeorm/entities/Person';
-
 import { Exclude } from 'class-transformer';
 import {
   Entity,
@@ -40,12 +38,12 @@ class Classroom {
 
   @OneToMany(
     () => ClassroomsPeople,
-    classroomsPeople => classroomsPeople.person,
+    classroomsPeople => classroomsPeople.classroom,
     {
       cascade: ['insert'],
     },
   )
-  people: Person[];
+  classroom_people: ClassroomsPeople[];
 
   @CreateDateColumn()
   created_at: Date;

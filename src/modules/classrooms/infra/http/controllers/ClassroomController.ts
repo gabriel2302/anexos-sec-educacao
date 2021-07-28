@@ -1,4 +1,5 @@
 import CreateClassroomService from '@modules/classrooms/services/CreateClassroomService';
+import FindClassroomService from '@modules/classrooms/services/FindClassroomService';
 import ListAllClassroomsService from '@modules/classrooms/services/ListAllClassroomsService';
 import UpdateInstitutionService from '@modules/institutions/services/UpdateInstitutionService';
 import { classToClass } from 'class-transformer';
@@ -6,19 +7,28 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 class ClassroomController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const findClassroom = container.resolve(FindClassroomService);
+
+    const classroom = await findClassroom.execute({ id });
+
+    return response.json(classroom);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, year, shift, people } = request.body;
     const { institution } = request.person;
     const createClass = container.resolve(CreateClassroomService);
-    const newClass = await createClass.execute({
+    const classroom = await createClass.execute({
       name,
       year,
       shift,
       people,
       institution,
     });
-    console.log('newClassControler: ', newClass);
-    return response.json(classToClass(newClass));
+    return response.json(classToClass(classroom));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

@@ -36,4 +36,11 @@ classroomRouter.get(
   classroomController.findAll,
 );
 
+classroomRouter.get(
+  '/:id',
+  ensureAuthenticated,
+  ensureAuthorized(['adm']),
+  classroomController.show,
+);
+
 export default classroomRouter;

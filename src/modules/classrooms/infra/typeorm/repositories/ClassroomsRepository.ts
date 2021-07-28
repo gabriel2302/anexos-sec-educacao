@@ -18,13 +18,12 @@ class ClassroomsRepository implements IClassroomRepository {
     year,
   }: ICreateClassroomDTO): Promise<Classroom> {
     const classroom = this.ormRepository.create({
-      institution_id,
       name,
-      year,
       shift,
-      people,
+      year,
+      institution_id,
+      classroom_people: people,
     });
-    console.log('classroomsRepository, classroom', classroom);
     await this.ormRepository.save(classroom);
     return classroom;
   }
@@ -34,7 +33,10 @@ class ClassroomsRepository implements IClassroomRepository {
   }
 
   public async findById(id: string): Promise<Classroom | undefined> {
-    const classroom = this.ormRepository.findOne(id);
+    const classroom = this.ormRepository.findOne({
+      relations: ['classroom_people', 'institution'],
+      where: { id },
+    });
     return classroom;
   }
 
@@ -47,7 +49,7 @@ class ClassroomsRepository implements IClassroomRepository {
 
   public async findAll(): Promise<Classroom[]> {
     const classrooms = await this.ormRepository.find({
-      relations: ['institution', 'teachers'],
+      relations: ['institution', 'classroom_people'],
     });
     return classrooms;
   }

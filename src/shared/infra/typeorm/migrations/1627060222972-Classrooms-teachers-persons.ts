@@ -21,16 +21,12 @@ export default class ClassroomsTeachersPersons1627060222972
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'person_id',
-            type: 'uuid',
-            isPrimary: true,
-            isNullable: true,
-          },
-          {
             name: 'classroom_id',
             type: 'uuid',
-            isPrimary: true,
-            isNullable: true,
+          },
+          {
+            name: 'person_id',
+            type: 'uuid',
           },
           {
             name: 'created_at',
