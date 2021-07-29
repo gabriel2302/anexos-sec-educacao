@@ -33,6 +33,14 @@ class ClassroomsRepository implements IClassroomRepository {
   }
 
   public async findById(id: string): Promise<Classroom | undefined> {
+    // const classroom = await this.ormRepository
+    //   .createQueryBuilder('classrooms_people')
+    //   .where('classrooms_people.id = :id', {
+    //     id,
+    //   })
+    //   .innerJoinAndSelect('classrooms_persons', 'persons')
+    //   .getOne()
+
     const classroom = this.ormRepository.findOne({
       relations: ['classroom_people', 'institution'],
       where: { id },

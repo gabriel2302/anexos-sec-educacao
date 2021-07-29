@@ -18,11 +18,11 @@ class ClassroomsPeople {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Person, person => person.classrooms_people)
+  @ManyToOne(() => Person, person => person.classrooms_people, { eager: true })
   @JoinColumn({ name: 'person_id' })
   person: Person;
 
-  @ManyToOne(() => Classroom, classroom => classroom.classroom_people)
+  @ManyToOne(() => Classroom, classroom => classroom.classroom_people, { eager: true })
   @JoinColumn({ name: 'classroom_id' })
   classroom: Classroom;
 
