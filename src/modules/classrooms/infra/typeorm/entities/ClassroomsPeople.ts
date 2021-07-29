@@ -22,15 +22,18 @@ class ClassroomsPeople {
   @JoinColumn({ name: 'person_id' })
   person: Person;
 
-  @ManyToOne(() => Classroom, classroom => classroom.classroom_people, { eager: true })
+  @ManyToOne(() => Classroom, classroom => classroom.classroom_people, {
+    eager: true,
+  })
   @JoinColumn({ name: 'classroom_id' })
   classroom: Classroom;
 
   @Column('uuid')
+  @Exclude()
   person_id: string;
 
   @Column('uuid')
-  @Exclude()
+  @Exclude({ toPlainOnly: true })
   classroom_id: string;
 
   @CreateDateColumn()

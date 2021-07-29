@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
-import { Exclude } from 'class-transformer';
 import ClassroomsPeople from '@modules/classrooms/infra/typeorm/entities/ClassroomsPeople';
+import { Exclude } from 'class-transformer';
 
 @Entity('persons')
 class Person {
@@ -38,7 +38,6 @@ class Person {
   functional_situation: string;
 
   @Column()
-  @Exclude()
   institution_id: string;
 
   @ManyToOne(() => Institution)
@@ -58,7 +57,7 @@ class Person {
   role: string;
 
   @Column()
-  @Exclude()
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @CreateDateColumn()

@@ -15,17 +15,21 @@ import ClassroomsPeople from './ClassroomsPeople';
 @Entity('classrooms')
 class Classroom {
   @PrimaryGeneratedColumn('uuid')
+  @Exclude({ toPlainOnly: true })
   id: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true })
   name: string;
 
   // ano
   @Column()
+  @Exclude({ toPlainOnly: true })
   year: string;
 
   // turno
   @Column()
+  @Exclude({ toPlainOnly: true })
   shift: string;
 
   @Column()
@@ -46,9 +50,11 @@ class Classroom {
   classroom_people: ClassroomsPeople[];
 
   @CreateDateColumn()
+  @Exclude({ toPlainOnly: true })
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude({ toPlainOnly: true })
   updated_at: Date;
 }
 
