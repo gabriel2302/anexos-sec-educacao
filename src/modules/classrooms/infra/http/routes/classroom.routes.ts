@@ -29,6 +29,27 @@ classroomRouter.post(
   classroomController.create,
 );
 
+classroomRouter.post(
+  '/students/:classroom_id',
+  ensureAuthenticated,
+  ensureAuthorized(['adm']),
+  celebrate({
+    [Segments.BODY]: {
+      students: Joi.array()
+        .items(
+          Joi.object({
+            id: Joi.string().uuid().required(),
+          }),
+        )
+        .required(),
+    },
+    [Segments.PARAMS]: {
+      classroom_id: Joi.string().uuid().required(),
+    },
+  }),
+  classroomController.create,
+);
+
 classroomRouter.get(
   '/',
   ensureAuthenticated,

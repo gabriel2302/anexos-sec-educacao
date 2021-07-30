@@ -11,6 +11,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import ClassroomsPeople from './ClassroomsPeople';
+import ClassroomsStudents from './ClassroomsStudents';
 
 @Entity('classrooms')
 class Classroom {
@@ -48,6 +49,15 @@ class Classroom {
     },
   )
   classroom_people: ClassroomsPeople[];
+
+  @OneToMany(
+    () => ClassroomsStudents,
+    classroomsStudents => classroomsStudents.classroom,
+    {
+      cascade: ['insert'],
+    },
+  )
+  classroom_students: ClassroomsStudents[];
 
   @CreateDateColumn()
   @Exclude({ toPlainOnly: true })

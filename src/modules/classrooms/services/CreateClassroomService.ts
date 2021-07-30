@@ -55,13 +55,10 @@ class CreateClassroomService {
       if (!originalPerson) {
         throw new AppError('Teacher not found');
       }
-      console.log('Person_id: ', originalPerson.id);
       return {
         person_id: originalPerson.id,
       };
     });
-
-    console.log(classroomPeople);
 
     const classroom = await this.classroomsRepository.create({
       name,
@@ -70,8 +67,6 @@ class CreateClassroomService {
       people: classroomPeople,
       institution_id: institution,
     });
-
-    console.log(classroom);
 
     return classroom;
   }

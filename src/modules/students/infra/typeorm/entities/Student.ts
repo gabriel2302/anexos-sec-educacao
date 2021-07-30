@@ -1,3 +1,4 @@
+import ClassroomsStudents from '@modules/classrooms/infra/typeorm/entities/ClassroomsStudents';
 import Institution from '@modules/institutions/infra/typeorm/entities/Institution';
 import { Exclude } from 'class-transformer';
 import {
@@ -8,6 +9,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('students')
@@ -28,6 +30,12 @@ class Student {
   @ManyToOne(() => Institution)
   @JoinColumn({ name: 'institution_id' })
   institution: Institution;
+
+  @OneToMany(
+    () => ClassroomsStudents,
+    classroomsStudents => classroomsStudents.classroom,
+  )
+  classrooms_students: ClassroomsStudents[];
 
   @CreateDateColumn()
   created_at: Date;

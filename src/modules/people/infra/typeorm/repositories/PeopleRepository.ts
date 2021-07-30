@@ -37,7 +37,7 @@ class PeopleRepository implements IPeopleRepository {
   public async findAllById(id: string): Promise<Person[]> {
     const people = await this.ormRepository.find({
       where: { institution_id: id },
-      relations: ['institution', 'person'],
+      relations: ['institution'],
     });
     return people;
   }
