@@ -3,7 +3,6 @@ type IStudent = {
 };
 
 export default interface ICreateClassroomDTO {
-  institution_id: string;
   classroom_id: string;
   students: IStudent[];
 }

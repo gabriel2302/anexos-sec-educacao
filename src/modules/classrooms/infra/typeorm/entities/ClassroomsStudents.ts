@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
@@ -13,16 +14,15 @@ import Student from '@modules/students/infra/typeorm/entities/Student';
 import Classroom from './Classroom';
 
 @Entity('classrooms_students')
-class ClassroomsStudents {
+class ClassroomStudents {
   @Column('uuid')
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Student, student => student.classrooms_students, {
+  @OneToMany(() => Student, students => students.id, {
     eager: true,
   })
-  @JoinColumn({ name: 'student_id' })
-  student: Student;
+  students: Student[];
 
   @ManyToOne(() => Classroom, classroom => classroom.classroom_students, {
     eager: true,
@@ -45,4 +45,4 @@ class ClassroomsStudents {
   updated_at: Date;
 }
 
-export default ClassroomsStudents;
+export default ClassroomStudents;
