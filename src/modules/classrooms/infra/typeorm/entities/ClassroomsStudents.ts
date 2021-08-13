@@ -1,11 +1,11 @@
 import {
   Entity,
   Column,
-  ManyToOne,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  ManyToOne,
   OneToMany,
 } from 'typeorm';
 
@@ -19,7 +19,7 @@ class ClassroomStudents {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => Student, students => students.id, {
+  @OneToMany(() => Student, student => student.classroomStudent, {
     eager: true,
   })
   students: Student[];
@@ -29,10 +29,6 @@ class ClassroomStudents {
   })
   @JoinColumn({ name: 'classroom_id' })
   classroom: Classroom;
-
-  @Column('uuid')
-  @Exclude()
-  student_id: string;
 
   @Column('uuid')
   @Exclude({ toPlainOnly: true })

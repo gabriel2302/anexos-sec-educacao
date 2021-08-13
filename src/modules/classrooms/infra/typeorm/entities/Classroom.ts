@@ -54,7 +54,7 @@ class Classroom {
     () => ClassroomsStudents,
     classroomsStudents => classroomsStudents.classroom,
     {
-      cascade: ['insert'],
+      cascade: ['recover'],
     },
   )
   classroom_students: ClassroomsStudents[];

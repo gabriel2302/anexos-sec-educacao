@@ -34,7 +34,7 @@ class ClassroomsRepository implements IClassroomRepository {
 
   public async findById(id: string): Promise<Classroom | undefined> {
     const classroom = this.ormRepository.findOne({
-      relations: ['classroom_people', 'institution'],
+      relations: ['classroom_people', 'institution', 'classroom_students'],
       where: { id },
     });
     return classroom;

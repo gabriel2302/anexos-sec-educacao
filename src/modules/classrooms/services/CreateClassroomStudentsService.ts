@@ -1,68 +1,72 @@
-// import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
-// import AppError from '@shared/errors/AppError';
-// import { inject, injectable } from 'tsyringe';
-// import ClassroomsStudents from '../infra/typeorm/entities/ClassroomsStudents';
-// import IClassroomsRepository from '../repositories/IClassroomsRepository';
+import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
+import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
+import ClassroomsStudents from '../infra/typeorm/entities/ClassroomsStudents';
+import IClassroomsRepository from '../repositories/IClassroomsRepository';
+import IClassroomsStudentsRepository from '../repositories/IClassroomsStudentsRepository';
 
-interface IStudent {
+interface Student {
   id: string;
 }
 
 interface IRequest {
-  institution: string;
   classroom_id: string;
-  students: IStudent[];
+  students: Student[];
 }
 
-// @injectable()
-// class CreateClassroomStudentsService {
-// constructor(
-// @inject('ClassroomsRepository')
-// private classroomsRepository: IClassroomsRepository,
+@injectable()
+class CreateClassroomStudentsService {
+  constructor(
+    @inject('ClassroomsRepository')
+    private classroomsRepository: IClassroomsRepository,
 
-// @inject('StudentsRepository')
-// private studentsRepository: IStudentsRepository,
-// ) {}
+    @inject('ClassroomsStudentsRepository')
+    private classroomsStudentsRepository: IClassroomsStudentsRepository,
 
-// public async execute({
-// classroom_id,
-// students,
-// }: IRequest): Promise<ClassroomsStudents> {
-// const checkClassroomExists = await this.classroomsRepository.findById(
-// classroom_id,
-// );
-// if (!checkClassroomExists) {
-// throw new AppError(`Classroom it not exists`);
-// }
-// const studentsIds = students.map(student => ({
-// id: student.id,
-// }));
+    @inject('StudentsRepository')
+    private studentsRepository: IStudentsRepository,
+  ) {}
 
-// const originalStudents = await this.studentsRepository.findAllPeopleById(
-// studentsIds,
-// );
+  public async execute({
+    classroom_id,
+    students,
+  }: IRequest): Promise<ClassroomsStudents> {
+    const checkClassroomExists = await this.classroomsRepository.findById(
+      classroom_id,
+    );
+    if (!checkClassroomExists) {
+      throw new AppError(`Classroom it not exists`);
+    }
+    const studentsIds = students.map(student => ({
+      id: student.id,
+    }));
 
-// const classroomStudents = students.map(student => {
-// const originalStudent = originalStudents.find(
-// findStudent => findStudent.id === student.id,
-// );
+    const originalStudents = await this.studentsRepository.findAllPeopleById(
+      studentsIds,
+    );
 
-// if (!originalStudent) {
-// throw new AppError('Teacher not found');
-// }
-// return {
-// student_id: originalStudent.id,
-// };
-// });
+    const classroomStudents = students.map(student => {
+      const originalStudent = originalStudents.find(
+        findStudent => findStudent.id === student.id,
+      );
 
-// const classroomsStudents = await this.classroomsRepository.create({
-// students: classroomStudents,
+      if (!originalStudent) {
+        throw new AppError('Teacher not found');
+      }
+      return {
+        student_id: originalStudent.id,
+      };
+    });
 
-// institution_id: institution,
-// });
+    console.log(classroomStudents);
 
-// return classroomsStudents;
-// }
-// }
+    const classroomsStudents = await this.classroomsStudentsRepository.create({
+      students: classroomStudents,
+      classroom_id,
+    });
+    console.log(classroomsStudents);
+    return classroomsStudents;
+  }
+}
 
-// sexport default CreateClassroomStudentsService;
+export default CreateClassroomStudentsService;

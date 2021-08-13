@@ -4,8 +4,10 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ensureAuthenticated from '@modules/people/infra/http/middlewares/ensureAuthenticated';
 import ensureAuthorized from '@modules/people/infra/http/middlewares/ensureAuthorized';
 import ClassroomController from '../controllers/ClassroomController';
+import ClassroomStudentsController from '../controllers/ClassroomStudentsController';
 
 const classroomController = new ClassroomController();
+const classroomStudentsController = new ClassroomStudentsController();
 const classroomRouter = Router();
 
 classroomRouter.post(
@@ -47,7 +49,7 @@ classroomRouter.post(
       classroom_id: Joi.string().uuid().required(),
     },
   }),
-  classroomController.create,
+  classroomStudentsController.create,
 );
 
 classroomRouter.get(

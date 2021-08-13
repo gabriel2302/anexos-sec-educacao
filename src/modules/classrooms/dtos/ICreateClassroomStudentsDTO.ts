@@ -1,8 +1,8 @@
-type IStudent = {
+type StudentDTO = {
   student_id: string;
 };
 
-export default interface ICreateClassroomDTO {
+export default interface ICreateClassroomStudentsDTO {
   classroom_id: string;
-  students: IStudent[];
+  students: StudentDTO[];
 }

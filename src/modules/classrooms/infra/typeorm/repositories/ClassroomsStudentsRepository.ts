@@ -1,10 +1,10 @@
 import ICreateClassroomStudentsDTO from '@modules/classrooms/dtos/ICreateClassroomStudentsDTO';
 import IClassroomsStudentsRepository from '@modules/classrooms/repositories/IClassroomsStudentsRepository';
 import { getRepository, Repository } from 'typeorm';
-import Classroom from '../entities/Classroom';
+
 import ClassroomStudents from '../entities/ClassroomsStudents';
 
-class ClassroomsRepository implements IClassroomsStudentsRepository {
+class ClassroomsStudentsRepository implements IClassroomsStudentsRepository {
   private ormRepository: Repository<ClassroomStudents>;
 
   constructor() {
@@ -16,18 +16,23 @@ class ClassroomsRepository implements IClassroomsStudentsRepository {
     students,
   }: ICreateClassroomStudentsDTO): Promise<ClassroomStudents> {
     const classroomStudents = this.ormRepository.create({
+      students: [
+        { id: '6f6b3ac0-0ed2-408f-b0df-001c65a51746' },
+        { id: '533b8f7b-094c-4f2e-b3ae-40a294bebea5' },
+      ],
       classroom_id,
-      student,
     });
-    await this.ormRepository.save(classroom);
-    return classroom;
+    await this.ormRepository.save(classroomStudents);
+    return classroomStudents;
   }
 
-  public async save(classroom: Classroom): Promise<Classroom> {
-    return this.ormRepository.save(classroom);
+  public async save(
+    classroomStudents: ClassroomStudents,
+  ): Promise<ClassroomStudents> {
+    return this.ormRepository.save(classroomStudents);
   }
 
-  public async findById(id: string): Promise<Classroom | undefined> {
+  public async findById(id: string): Promise<ClassroomStudents | undefined> {
     const classroom = this.ormRepository.findOne({
       relations: ['classroom_people', 'institution'],
       where: { id },
@@ -35,14 +40,7 @@ class ClassroomsRepository implements IClassroomsStudentsRepository {
     return classroom;
   }
 
-  public async findByName(name: string): Promise<Classroom | undefined> {
-    const classroom = this.ormRepository.findOne({
-      where: { name },
-    });
-    return classroom;
-  }
-
-  public async findAll(): Promise<Classroom[]> {
+  public async findAll(): Promise<ClassroomStudents[]> {
     const classrooms = await this.ormRepository.find({
       relations: ['institution', 'classroom_people'],
     });
@@ -50,4 +48,4 @@ class ClassroomsRepository implements IClassroomsStudentsRepository {
   }
 }
 
-export default ClassroomsRepository;
+export default ClassroomsStudentsRepository;

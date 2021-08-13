@@ -1,4 +1,4 @@
-// import CreateClassroomService from '@modules/classrooms/services/CreateClassroomService';
+import CreateClassroomStudentsService from '@modules/classrooms/services/CreateClassroomStudentsService';
 import FindClassroomService from '@modules/classrooms/services/FindClassroomService';
 import ListAllClassroomsService from '@modules/classrooms/services/ListAllClassroomsService';
 import UpdateInstitutionService from '@modules/institutions/services/UpdateInstitutionService';
@@ -17,19 +17,18 @@ class ClassroomStudentsController {
     return response.json(classroom);
   }
 
-  // public async create(request: Request, response: Response): Promise<Response> {
-  // const { classroom_id, students } = request.body;
-  // const { institution } = request.person;
-  // const createClassroomStudents = container.resolve(
-  // CreateClassroomStudentsService,
-  // );
-  // const students = await createClassroomStudents.execute({
-  // institution,
-  // classroom_id,
-  // students,
-  // });
-  // return response.json(classToClass(students));
-  // }
+  public async create(request: Request, response: Response): Promise<Response> {
+    const { students } = request.body;
+    const { classroom_id } = request.params;
+    const createClassroomStudents = container.resolve(
+      CreateClassroomStudentsService,
+    );
+    const studentsResponse = await createClassroomStudents.execute({
+      classroom_id,
+      students,
+    });
+    return response.json(classToClass(studentsResponse));
+  }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { name, director, learning_kind } = request.body;

@@ -12,6 +12,8 @@ import PeopleRepository from '@modules/people/infra/typeorm/repositories/PeopleR
 
 import IClassroomsRepository from '@modules/classrooms/repositories/IClassroomsRepository';
 import ClassroomsRepository from '@modules/classrooms/infra/typeorm/repositories/ClassroomsRepository';
+import IClassroomsStudentsRepository from '@modules/classrooms/repositories/IClassroomsStudentsRepository';
+import ClassroomsStudentsRepository from '@modules/classrooms/infra/typeorm/repositories/ClassroomsStudentsRepository';
 
 container.registerSingleton<IStudentsRepository>(
   'StudentsRepository',
@@ -31,4 +33,9 @@ container.registerSingleton<IPeopleRepository>(
 container.registerSingleton<IClassroomsRepository>(
   'ClassroomsRepository',
   ClassroomsRepository,
+);
+
+container.registerSingleton<IClassroomsStudentsRepository>(
+  'ClassroomsStudentsRepository',
+  ClassroomsStudentsRepository,
 );
