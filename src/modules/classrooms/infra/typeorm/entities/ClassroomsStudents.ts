@@ -19,20 +19,22 @@ class ClassroomStudents {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => Student, student => student.classroomStudent, {
+  @OneToMany(() => Student, student => student.id, {
     eager: true,
   })
   students: Student[];
 
-  @ManyToOne(() => Classroom, classroom => classroom.classroom_students, {
-    eager: true,
-  })
+  @ManyToOne(() => Classroom)
   @JoinColumn({ name: 'classroom_id' })
   classroom: Classroom;
 
   @Column('uuid')
   @Exclude({ toPlainOnly: true })
   classroom_id: string;
+
+  @Column('uuid')
+  @Exclude({ toPlainOnly: true })
+  student_id: string;
 
   @CreateDateColumn()
   created_at: Date;

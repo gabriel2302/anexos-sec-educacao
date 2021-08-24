@@ -16,12 +16,10 @@ class ClassroomsStudentsRepository implements IClassroomsStudentsRepository {
     students,
   }: ICreateClassroomStudentsDTO): Promise<ClassroomStudents> {
     const classroomStudents = this.ormRepository.create({
-      students: [
-        { id: '6f6b3ac0-0ed2-408f-b0df-001c65a51746' },
-        { id: '533b8f7b-094c-4f2e-b3ae-40a294bebea5' },
-      ],
+      students: [{ id: '6f6b3ac0-0ed2-408f-b0df-001c65a51746' }],
       classroom_id,
     });
+    console.log(classroomStudents);
     await this.ormRepository.save(classroomStudents);
     return classroomStudents;
   }
