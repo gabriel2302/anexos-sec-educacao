@@ -37,21 +37,25 @@ class CreateClassroomStudentsService {
     if (!checkClassroomExists) {
       throw new AppError(`Classroom it not exists`);
     }
+    console.log('students: ', students);
     const studentsIds = students.map(student => ({
       id: student.id,
     }));
+
+    console.log('StudentsIds: ', studentsIds);
 
     const originalStudents = await this.studentsRepository.findAllPeopleById(
       studentsIds,
     );
 
+    console.log('Original Students: ', originalStudents);
     const classroomStudents = students.map(student => {
       const originalStudent = originalStudents.find(
         findStudent => findStudent.id === student.id,
       );
 
       if (!originalStudent) {
-        throw new AppError('Teacher not found');
+        throw new AppError('Student not found');
       }
       return {
         student_id: originalStudent.id,
