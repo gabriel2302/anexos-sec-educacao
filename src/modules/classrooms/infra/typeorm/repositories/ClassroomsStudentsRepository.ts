@@ -13,10 +13,10 @@ class ClassroomsStudentsRepository implements IClassroomsStudentsRepository {
 
   public async create({
     classroom_id,
-    students,
+    student_id,
   }: ICreateClassroomStudentsDTO): Promise<ClassroomStudents> {
     const classroomStudents = this.ormRepository.create({
-      students: [{ id: '1' }],
+      student_id,
       classroom_id,
     });
     console.log(classroomStudents);

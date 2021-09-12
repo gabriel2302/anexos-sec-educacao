@@ -23,6 +23,7 @@ class ClassroomStudentsController {
     const createClassroomStudents = container.resolve(
       CreateClassroomStudentsService,
     );
+
     const studentsResponse = await createClassroomStudents.execute({
       classroom_id,
       students,
